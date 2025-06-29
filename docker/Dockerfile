@@ -60,7 +60,11 @@ RUN chmod +x /root/install.sh \
 ############################
 # BepInEx (if server uses mods)
 
-COPY data/mods/ /app/
+COPY data/mods/ /tmp/mods/
+RUN if [ "$(ls -A /tmp/mods/ 2>/dev/null)" ]; then \
+        cp -r /tmp/mods/* /app/ && \
+        rm -rf /tmp/mods/; \
+    fi
 
 
 ############################
